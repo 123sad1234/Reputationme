@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#09090b">
+  <title>META ID — Full Dossier</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      --bg: #09090b;
+      --card: #151518;
+      --border: #34343a;
+      --text: #f4f4f5;
+      --muted: #92929b;
+      --silver: #d4d4d8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 20px 16px 36px;
+      background: radial-gradient(ellipse at top, #242429, transparent 48%), var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, a { font: inherit; -webkit-tap-highlight-color: transparent; }
+    .app { max-width: 480px; margin: auto; }
+    .topbar { display:flex; align-items:center; gap:12px; margin-bottom:26px; }
+    .logo {
+      width:48px;height:48px;display:grid;place-items:center;
+      border:1px solid #686870;border-radius:15px;
+      background:linear-gradient(145deg,#35353b,#111114);
+      font-size:25px;
+    }
+    .brand { font-size:20px;font-weight:850;letter-spacing:3px; }
+    .subtitle,.eyebrow { color:var(--muted);font-size:10px;letter-spacing:1.8px; }
+    .subtitle { margin-top:5px; }
+    .hero {
+      padding:24px 20px;border:1px solid #414147;border-radius:22px;
+      background:linear-gradient(145deg,#1d1d21,#101012 72%);
+      box-shadow:0 18px 50px #0008;
+    }
+    .eyebrow { margin-bottom:16px; }
+    .identity { display:flex;align-items:center;gap:15px; }
+    .avatar {
+      width:66px;height:66px;flex-shrink:0;display:grid;place-items:center;
+      border:1px solid #777780;border-radius:20px;
+      background:linear-gradient(145deg,#34343a,#111114);
+      font-size:34px;
+    }
+    h1 { margin:0;font-size:26px;letter-spacing:-.7px; }
+    .bio { color:#aaaab2;font-size:13px;margin-top:8px;line-height:1.5; }
+    .tags { display:flex;gap:7px;flex-wrap:wrap;margin-top:17px; }
+    .tag {
+      padding:7px 10px;border:1px solid #45454b;border-radius:8px;
+      background:#252529;color:#dedee2;font-size:10px;letter-spacing:.6px;
+    }
+    .tag .emoji { margin-right:5px; }
+    .divider { height:1px;background:var(--border);margin:22px 0; }
+    .metrics { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px; }
+    .metric {
+      padding:16px;border:1px solid var(--border);border-radius:15px;
+      background:#151518;
+    }
+    .metric-label { color:var(--muted);font-size:10px;letter-spacing:1.5px; }
+    .metric-value { font-size:29px;font-weight:750;margin-top:8px;letter-spacing:-.5px; }
+    .metric-note { color:#777780;font-size:10px;margin-top:6px; }
+    .section { margin-top:24px; }
+    .section-title {
+      color:#a5a5ad;font-size:11px;letter-spacing:2px;
+      margin-bottom:12px;font-weight:700;
+    }
+    .panel {
+      padding:16px;border:1px solid var(--border);
+      border-radius:15px;background:var(--card);
+    }
+    .row {
+      display:flex;justify-content:space-between;align-items:flex-start;
+      gap:15px;padding:11px 0;border-bottom:1px solid #29292e;
+    }
+    .row:first-child { padding-top:0; }
+    .row:last-child { border-bottom:0;padding-bottom:0; }
+    .key { color:var(--muted);font-size:12px; }
+    .value { color:#eeeef0;font-size:12px;text-align:right;overflow-wrap:anywhere; }
+    .project { display:flex;align-items:center;gap:12px; }
+    .project-icon {
+      width:42px;height:42px;display:grid;place-items:center;
+      border:1px solid #414147;border-radius:12px;background:#222226;font-size:20px;
+    }
+    .project-name { font-size:13px;font-weight:700; }
+    .project-desc { color:var(--muted);font-size:11px;margin-top:5px;line-height:1.5; }
+    .note { color:#b6b6bd;font-size:12px;line-height:1.8; }
+    .notice {
+      margin-top:15px;padding:12px;border-radius:11px;
+      background:#19191c;border:1px solid #34343a;
+      color:#9999a1;font-size:10px;line-height:1.7;
+    }
+    .button {
+      display:flex;justify-content:center;align-items:center;gap:9px;
+      width:100%;min-height:49px;margin-top:22px;padding:14px;
+      border:1px solid #66666e;border-radius:13px;
+      background:linear-gradient(135deg,#dedee2,#a8a8af);
+      color:#111113;text-decoration:none;font-weight:750;font-size:13px;
+      cursor:pointer;
+    }
+    .button.secondary {
+      margin-top:10px;background:#17171a;color:#e8e8eb;border-color:#39393f;
+    }
+    .footer { margin-top:24px;text-align:center;color:#64646d;font-size:9px;letter-spacing:1.5px; }
+    @media (max-width:360px) {
+      body { padding:14px 11px 28px; }
+      .hero { padding:19px 15px; }
+      h1 { font-size:23px; }
+      .metric-value { font-size:25px; }
+    }
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="topbar">
+    <div class="logo">◈</div>
+    <div>
+      <div class="brand">META ID</div>
+      <div class="subtitle">PERSONAL DIGITAL DOSSIER</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">PUBLIC PROFILE / 001</div>
+    <div class="identity">
+      <div class="avatar">◈</div>
+      <div>
+        <h1>@anoneye</h1>
+        <div class="bio">Digital projects · Telegram · NFT</div>
+      </div>
+    </div>
+    <div class="tags">
+      <span class="tag">✦ OG MEMBER</span>
+      <span class="tag">◇ USER-SUBMITTED</span>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">💎 REP SCORE</div>
+        <div class="metric-value">+284</div>
+        <div class="metric-note">Не проверено</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">🤝 TOTAL DEALS</div>
+        <div class="metric-value">276</div>
+        <div class="metric-note">Не проверено</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">◈ IDENTITY</div>
+    <div class="panel">
+      <div class="row"><span class="key">Telegram ID</span><span class="value">592829931</span></div>
+      <div class="row"><span class="key">Account year</span><span class="value">2018 · не проверено</span></div>
+      <div class="row"><span class="key">NFT username</span><span class="value">@vblabs</span></div>
+      <div class="row"><span class="key">Status</span><span class="value">OG Member</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">✦ PROJECTS</div>
+    <div class="panel">
+      <div class="project">
+        <div class="project-icon">💠</div>
+        <div>
+          <div class="project-name">@MetadonStars_bot</div>
+          <div class="project-desc">Telegram Stars · NFT Rentals</div>
+        </div>
+      </div>
+      <a class="button secondary" href="https://t.me/MetadonStars_bot" target="_blank" rel="noopener noreferrer">
+        ↗ Открыть проект
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">◉ ANALYTICAL NOTE</div>
+    <div class="panel">
+      <div class="note">
+        Профиль ориентирован на цифровые проекты в экосистеме Telegram и NFT.
+        Репутационные показатели и сведения о деятельности заявлены владельцем.
+        Независимая проверка представленных данных не проводилась.
+      </div>
+    </div>
+    <div class="notice">
+      DATA SOURCE: OWNER-SUBMITTED<br>
+      VERIFICATION: NOT VERIFIED<br>
+      META ID · PERSONAL DOSSIER
+    </div>
+  </section>
+
+  <button class="button" id="shareButton">↗ Поделиться досье</button>
+  <button class="button secondary" id="closeButton">Закрыть приложение</button>
+
+  <footer class="footer">META ID · DARK LUXURY INTERFACE</footer>
+</main>
+
+<script>
+  const tg = window.Telegram?.WebApp;
+
+  if (tg) {
+    tg.ready();
+    tg.expand();
+    tg.setHeaderColor("#09090b");
+    tg.setBackgroundColor("#09090b");
+  }
+
+  document.getElementById("shareButton").addEventListener("click", async () => {
+    const url = "https://t.me/anoneye";
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "META ID — @anoneye",
+          text: "Public digital dossier",
+          url
+        });
+      } catch (_) {}
+    } else if (tg?.openTelegramLink) {
+      tg.openTelegramLink(
+        "https://t.me/share/url?url=" + encodeURIComponent(url) +
+        "&text=" + encodeURIComponent("META ID — @anoneye")
+      );
+    } else {
+      try {
+        await navigator.clipboard.writeText(url);
+        alert("Ссылка скопирована");
+      } catch (_) {
+        prompt("Скопируй ссылку на досье:", url);
+      }
+    }
+  });
+
+  document.getElementById("closeButton").addEventListener("click", () => {
+    if (tg) tg.close();
+    else history.back();
+  });
+</script>
+</body>
+</html>
